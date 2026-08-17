@@ -1,0 +1,94 @@
+import pandas as pd
+import re
+import nltk
+import joblib
+
+from nltk.corpus import stopwords
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
+
+nltk.download("stopwords")
+
+# Load dataset
+df = pd.read_csv("customer_reviews.csv")
+
+# Remove missing values
+df = df.dropna(subset=["review", "sentiment"])
+
+# Stopwords
+stop_words = set(stopwords.words("english"))
+
+
+# Text preprocessing function
+def preprocess_text(text):
+    text = str(text).lower()
+
+    # Remove URLs
+    text = re.sub(r"http\S+|www\S+", "", text)
+
+    # Remove special characters
+    text = re.sub(r"[^a-zA-Z\s]", "", text)
+
+    # Remove extra spaces
+    text = re.sub(r"\s+", " ", text).strip()
+
+    # Remove stopwords
+    words = text.split()
+    words = [
+        word for word in words
+        if word not in stop_words
+    ]
+
+    return " ".join(words)
+
+
+# Apply preprocessing
+df["clean_review"] = df["review"].apply(preprocess_text)
+
+# Input and output
+X = df["clean_review"]
+y = df["sentiment"]
+
+# Split dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)
+
+# TF-IDF
+vectorizer = TfidfVectorizer(
+    max_features=5000,
+    ngram_range=(1, 2)
+)
+
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
+
+# Logistic Regression model
+model = LogisticRegression(
+    max_iter=1000
+)
+
+model.fit(X_train_tfidf, y_train)
+
+# Prediction
+y_pred = model.predict(X_test_tfidf)
+
+# Accuracy
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Model Accuracy:", round(accuracy * 100, 2), "%")
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+# Save model
+joblib.dump(model, "sentiment_model.pkl")
+joblib.dump(vectorizer, "tfidf_vectorizer.pkl")
+
+print("\nModel saved successfully!")

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Healthcare Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏥 Healthcare Result</h1>
+
+    <p>
+        <strong>Entered Symptom:</strong>
+        {{ symptom }}
+    </p>
+
+    <p>
+        <strong>AI Model Result:</strong>
+        {{ result }}
+    </p>
+
+    <a href="/">← Check Another Symptom</a>
+
+    <p class="disclaimer">
+        ⚠️ This application is for educational purposes only.
+        It does not provide medical diagnosis or treatment.
+    </p>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Healthcare Assistant</title>
+</head>
+
+<body>
+
+    <h1>🏥 AI Healthcare Assistant</h1>
+
+    <p>Enter your symptoms to get basic health information.</p>
+
+    <form action="/predict" method="POST">
+
+        <label for="symptom">Enter your symptom:</label>
+        <br><br>
+
+        <input
+            type="text"
+            id="symptom"
+            name="symptom"
+            placeholder="Example: headache"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">Check</button>
+
+    </form>
+
+</body>
+</html>

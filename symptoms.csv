@@ -1,0 +1,13 @@
+symptom,disease
+fever,Common Cold
+cough,Common Cold
+sneezing,Common Cold
+headache,Migraine
+nausea,Migraine
+throbbing pain,Migraine
+stomach pain,Gastritis
+acidity,Gastritis
+heartburn,Gastritis
+itching,Skin Allergy
+skin rash,Skin Allergy
+redness,Skin Allergy

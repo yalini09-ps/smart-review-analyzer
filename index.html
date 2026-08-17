@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Healthcare Assistant</title>
@@ -8,28 +9,33 @@
 
 <body>
 
+    <div class="container">
+
     <h1>🏥 AI Healthcare Assistant</h1>
 
-    <p>Enter your symptoms to get basic health information.</p>
+    <p>Enter your symptom to get basic health information.</p>
 
     <form action="/predict" method="POST">
 
-        <label for="symptom">Enter your symptom:</label>
-        <br><br>
-
         <input
             type="text"
-            id="symptom"
             name="symptom"
             placeholder="Example: headache"
             required
         >
 
-        <br><br>
+        <br>
 
-        <button type="submit">Check</button>
+        <button type="submit">Check Symptom</button>
 
     </form>
+
+    <p class="disclaimer">
+        ⚠️ This application is for educational purposes only.
+        It does not provide medical diagnosis or treatment.
+    </p>
+
+</div>
 
 </body>
 </html>
